@@ -11,7 +11,7 @@ function modal_dialog_default_config( $confignumber, $setoptions = 'return' ) {
 
 	$options['active'] = false;
 	$options['cookieduration']  = 365;
-	$options['contenturl']      = 'http://ici.radio-canada.ca/';
+	$options['contenturl']      = '';
 	$options['pages']           = '';
 	$options['overlaycolor']    = '#00CC00';
 	$options['textcolor']       = '#000000';

@@ -1,5 +1,5 @@
 <?php
-/* Plugin Name: Simple pop up
+/* Plugin Name: Modal Dialog
 Description: A plugin used to display a modal dialog to visitors with text content or the contents of an external web site
 Author:Dhanam Jayan
 Copyright 2019  Dhanam Jayan  

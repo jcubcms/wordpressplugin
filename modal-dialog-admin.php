@@ -74,15 +74,12 @@ class modal_dialog_plugin_admin {
 			$this,
 			'on_show_page'
 		) );
-		$this->pagehookfaq      = add_submenu_page( MODAL_DIALOG_ADMIN_PAGE_NAME, __( 'Modal Dialog - FAQ', 'modal-dialog' ), __( 'FAQ', 'modal-dialog' ), $accesslevelcheck, 'modal-dialog-faq', array(
-			$this,
-			'on_show_page'
-		) );
+		
 
 		//register  callback gets call prior your own page gets rendered
 		add_action( 'load-' . $this->pagehooktop, array( &$this, 'on_load_page' ) );
 		add_action( 'load-' . $this->pagehooksettings, array( &$this, 'on_load_page' ) );
-		add_action( 'load-' . $this->pagehookfaq, array( &$this, 'on_load_page' ) );
+		
 	}
 
 	//will be executed if wordpress core detects this page has to be rendered
@@ -126,10 +123,7 @@ class modal_dialog_plugin_admin {
 			'dialog_config_save_meta_box'
 		), $this->pagehooksettings, 'normal', 'high' );
 
-		add_meta_box( 'modaldialog_dialog_faq_meta_box', __( 'Frequently Asked Questions', 'modal-dialog' ), array(
-			$this,
-			'dialog_config_faq_meta_box'
-		), $this->pagehookfaq, 'normal', 'high' );
+		
 
 	}
 
@@ -366,12 +360,7 @@ class modal_dialog_plugin_admin {
 		?>
 
 		<table>
-			<tr>
-				<td style="width: 200px">Number of Modal Dialogs</td>
-				<td>
-					<input type="text" id="numberofmodaldialogs" name="numberofmodaldialogs" size="5" value="<?php echo $genoptions['numberofmodaldialogs']; ?>" />
-				</td>
-			</tr>
+			
 			<?php if (current_user_can( 'manage_options' )) { ?>
 			<tr>
 				<td style='width:200px'>Access level required</td>
@@ -699,59 +688,6 @@ class modal_dialog_plugin_admin {
 				</td>
 			</tr>
 		</table>
-	<?php
-	}
-
-	function md_editsave_post_field( $post_id ) {
-		if ( isset( $_POST['dialogid'] ) ) {
-			update_post_meta( $post_id, "modal-dialog-id", $_POST['dialogid'] );
-		}
-	}
-
-	function dialog_config_faq_meta_box() {
-		?>
-
-		<h2>Why is Modal Dialog not showing up on my web site?</h2>
-
-		<p>There are typically two main reasons why Modal Dialog does not show up correctly on web pages:</p>
-
-		<ol>
-			<li>You have another plugin installed which uses jQuery on your site that has its own version of jQuery instead of using the default version that is part of the Wordpress install. To see if this is the case, go to your site and look at the page source, then search for jQuery. If you see some versions of jQuery that get loaded from plugin directories, then this is most likely the source of the problem as they would conflict with the copy of jQuery that is delivered with Wordpress.</li>
-
-			<li>The other thing to check is to see if your theme has the wp_head and wp_footer functions in the theme's header. If these functions are not present, then the plugin will not work as expected.</li>
-
-			<li>The last potential issue is a javascript conflict on your site. Install a browser plugin such as Firebug and look at the console to see if any javascript errors are display. Then look at the problematic plugin and try to fix the problem. A single javascript error will prevent all remaining javascript from executing.</li>
-		</ol>
-
-		<p>You can send me a link to your web site if these solutions don't help you so that I can see what is happening myself and try to provide a solution.</p>
-
-		<h2>How can I make Modal Dialog open when I click on a button or a link?</h2>
-
-		<p>Add the onclick property to your link or button code and call the <code>modal_dialog_open()</code> function.
-		</p>
-
-		<p>
-			<code>&lt;a href=&quot;#&quot; onclick=&quot;modal_dialog_open();&quot; title=&quot;Learn More&quot;&gt;Learn More&lt;/a&gt;</code>
-		</p>
-
-		<p><code>&lt;button onclick=&quot;modal_dialog_open();&quot;&gt;Open Modal&lt;/button&gt;</code></p>
-
-		<h2>How can I close the Modal Dialog Window Manually?</h2>
-
-		<p>You can create a button or other control that calls the <code>modal_dialog_close()</code> function:</p>
-
-		<p>
-			<code>&lt;a href=&quot;#&quot; onclick=&quot;modal_dialog_close();&quot; title=&quot;Close dialog&quot;&gt;Learn More&lt;/a&gt;</code>
-		</p>
-
-		<p><code>&lt;button onclick=&quot;modal_dialog_close();&quot;&gt;Close Modal&lt;/button&gt;</code></p>
-
-		<h2>How can I manually set the cookie if I ask Modal Dialog to let me do it manually?</h2>
-
-		<p>Call the following javascript / jQuery function, setting the cookie-name to match the name entered in the Modal Dialog settings, the cookievalue and the duration to any duration that you deem acceptable.</p>
-
-		<p>jQuery.cookie('cookie-name', cookievalue, { expires: 365 });</p>
-
 
 	<?php
 	}
